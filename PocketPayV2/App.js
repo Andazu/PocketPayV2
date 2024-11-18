@@ -1,15 +1,30 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { Text, View, Nav } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useFonts, Poppins_400Regular } from "@expo-google-fonts/poppins";
+import AppLoading from "expo-app-loading";
+import Navbar from "./components/Navbar";
+import HomeScreen from "./screens/HomeScreen";
 import "./global.css";
 
+const Stack = createNativeStackNavigator();
+
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
-    <View className='flex-1 justify-center items-center bg-white'>
-      <StatusBar style='auto' />
-      <Text className='text-center mt-3 text-2xl font-light text-orange-300'>
-        Login
-      </Text>
-      {/* Additional components goes here */}
-    </View>
+    <NavigationContainer>
+      <Navbar />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='Home' component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
