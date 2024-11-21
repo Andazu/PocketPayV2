@@ -16,17 +16,24 @@ export default function HomeScreen({ navigation }) {
   const [isSwipeComplete, setIsSwipeComplete] = useState(false);
   const [countdown, setCountdown] = useState(5);
   const [countdownActive, setCountdownActive] = useState(false);
+  const [apiKey] = useState('522DB3E2-B386-4007-AE93-DAA9DC70A660');
 
   useEffect(() => {
     let timer;
-    if (countdownActive && countdown > 0) {
-      timer = setInterval(() => {
-        setCountdown((prev) => prev - 1);
-      }, 1000);
-    } else if (countdown === 0) {
-      // Navigate to receipt when countdown finishes
-      navigation.navigate('Receipt');
-    }
+    const fetchData = async () => {
+      if (countdownActive && countdown > 0) {
+        timer = setInterval(() => {
+          setCountdown((prev) => prev - 1);
+        }, 1000);
+      } else if (countdown === 0) {
+        const orderData = await placeOrder(); // Call API and get response
+        if (orderData) {
+          navigation.navigate('Receipt', { orderData }); // Navigate with data
+        }
+      }
+    };
+
+    fetchData();
 
     return () => clearInterval(timer); // Cleanup timer
   }, [countdownActive, countdown, navigation]);
@@ -65,6 +72,48 @@ export default function HomeScreen({ navigation }) {
         ],
         { cancelable: true }
       );
+    }
+  };
+
+  const placeOrder = async () => {
+    try {
+      const postData = [
+        {
+          ElementIdSelling: 'some-element-id', // Replace with actual values
+          PLUID: 'some-plu-id', // Replace with actual values
+          Quantity: '1', // Replace with actual values
+          Pinned: 'Y', // Replace with actual values
+        },
+      ];
+
+      const response = await fetch(
+        'https://sandboxmpro.inmsystems.com/inmsystemsapi/api/InmPOCKETPay/PlaceOrder',
+        {
+          method: 'POST',
+          headers: {
+            APIKey: apiKey,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(postData),
+        }
+      );
+
+      if (response.ok) {
+        const apiResponse = await response.json();
+        const { Status: apiStatus } = apiResponse;
+
+        if (apiStatus === '1') {
+          return apiResponse; // Return API response on success
+        } else {
+          Alert.alert('Failed to place order. API responded with an error.');
+          return null;
+        }
+      } else {
+        throw new Error('Network error');
+      }
+    } catch (error) {
+      Alert.alert('Error', error.message);
+      return null;
     }
   };
 
