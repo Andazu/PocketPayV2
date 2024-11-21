@@ -1,13 +1,14 @@
 
 # PocketPayV2
 
-PocketPayV2 is a React Native project created with **Expo** and styled using **NativeWind** (a Tailwind CSS solution for React Native). The purpose of this project is to recreate the functionality of an existing `.asp` and Bootstrap-based site within a modern React Native framework.
+PocketPayV2 is a React Native project created with **Expo** and styled using **NativeWind** (a Tailwind CSS solution for React Native), with type safety ensured by TypeScript. The purpose of this project is to recreate the functionality of an existing `.asp` and Bootstrap-based site within a modern React Native framework.
 
 ## Features
 
 - Modern mobile application built with React Native and Expo.
 - Tailwind-like styling using NativeWind for streamlined and efficient UI development.
 - Modularized component structure for scalability and maintainability.
+- Type-safe development with TypeScript for improved maintainability and reduced runtime errors.
 
 ## Project Structure
 
@@ -18,6 +19,7 @@ Key files and folders:
 - `global.css`: Contains global styles used across the app.
 - `tailwind.config.js`: Configuration file for NativeWind (Tailwind CSS for React Native).
 - `scripts/`: Helper scripts for development and build tasks.
+- `tsconfig.json`: Configuration for TypeScript to define project-specific compiler options and settings.
 
 ## Prerequisites
 
