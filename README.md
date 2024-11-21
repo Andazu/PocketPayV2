@@ -42,7 +42,7 @@ Ensure you have the following installed on your system:
 
 1. Start the Expo development server:
    ```bash
-   expo start
+   npm start
    ```
 2. Use the Expo Go app on your mobile device or an emulator to run the app by scanning the QR code displayed in the terminal or browser.
 
@@ -50,28 +50,6 @@ Ensure you have the following installed on your system:
 
 - **Tailwind CSS**: Modify the `tailwind.config.js` file to customize the design system.
 - **Environment Variables**: If the app uses environment-specific configurations, they should be added in the appropriate file or a `.env` file.
-
-## Scripts
-
-The project includes some pre-configured scripts in `package.json`:
-- Start the development server:
-  ```bash
-  npm start
-  ```
-- Build the app:
-  ```bash
-  expo build
-  ```
-
-## Technologies Used
-
-- **React Native**: Framework for building native apps using React.
-- **Expo**: A framework and platform for universal React applications.
-- **NativeWind**: A utility-first styling framework for React Native, inspired by Tailwind CSS.
-
-## Contributing
-
-Feel free to fork the repository and submit pull requests with improvements or new features.
 
 ## License
 
